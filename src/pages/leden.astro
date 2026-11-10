@@ -60,6 +60,28 @@ const BLADMUZIEK_VERBEELDING = [
   { id: "plg", title: "Pelgrim's Chorus", pdf: "Nr,013 Pelgrim's chorus.pdf" },
 ];
 
+const BLADMUZIEK_OVERIG = [
+  { id: "ecce", title: "Ecce, Quomodo Moritur (Nr. 6)", pdf: "Nr,006 Ecce, Quomodo Moritur.pdf" },
+  { id: "gndf", title: "Good Night Dear Friends (Nr. 20)", pdf: "Nr,020 Good night dear friends.pdf" },
+  { id: "lvda2", title: "La vergine degli Angeli (andere versie, Nr. 39c)", pdf: "Nr,039c La vergine degli angeli (5 blz).pdf" },
+  { id: "panis", title: "Panis Angelicus (Nr. 101a)", pdf: "Nr,101a Panis Angelicus.pdf" },
+  { id: "frieden", title: "Frieden (Nr. 128)", pdf: "Nr,128 Frieden.pdf" },
+  { id: "ezg", title: "Ere zij God (Nr. 210)", pdf: "Nr,210 Ere zij God.pdf" },
+  { id: "hiop", title: "He Is Our Peace (Nr. 235a)", pdf: "Nr,235a He is our Peace.pdf" },
+  { id: "still", title: "Still, Still, Still (Nr. 241)", pdf: "Nr,241 Still, Still, Still.pdf" },
+  { id: "baba", title: "Baba Yetu (Nr. 314)", pdf: "Nr,314 Baba Yetu TTBB fonetisch.pdf" },
+  { id: "oekr", title: "Oekraïens volkslied (Nr. 328)", pdf: "Nr,328 Oekraiens volkslied SATB.pdf" },
+  { id: "dgsf", title: "Die Gedanken sind frei (Nr. 352)", pdf: "Nr,352 Die gedanken sind frei SATB.pdf" },
+  { id: "imagine", title: "Imagine (Nr. 353)", pdf: "Nr,353 Imagine SATB.pdf" },
+  { id: "speeltuin", title: "Speeltuin (Nr. 356)", pdf: "Nr,356 Speeltuin TTBB.pdf" },
+  { id: "bia", title: "Brothers in Arms (Nr. 357)", pdf: "Nr,357 Brothers in arms.pdf" },
+  { id: "bia-l", title: "Brothers in Arms — leesbare versie (Nr. 357)", pdf: "Nr,357 Brothers in arms leesbaar.pdf" },
+  { id: "wtwnn", title: "What the World Needs Now (Nr. 358)", pdf: "Nr,358 What the world needs now SATB.pdf" },
+  { id: "avg2", title: "Ave Maria (andere versie, Nr. 369)", pdf: "Nr,369 Ave Maria TTBB (3 blz).pdf" },
+  { id: "bnd2", title: "Brand New Day (andere versie, Nr. 373)", pdf: "Nr,373 Brand new day SATBpf (13 blz).pdf" },
+  { id: "dhfx", title: "Driving Home for Christmas (Nr. 403)", pdf: "Nr,403 Driving home for Xmas TTBB.pdf" },
+];
+
 const STEMMEN = [
   {
     stem: "Tenoot",
@@ -92,6 +114,29 @@ const STEMMEN = [
       { stuk: "Joy to the World (2)", bestand: "tenoot/Joy to the World 2 - tenor.m4a" },
       { stuk: "Joy to the World (3)", bestand: "tenoot/Joy to the World 3 - tenor.m4a" },
       { stuk: "Joy to the World (4)", bestand: "tenoot/Joy to the World 4 - tenor.m4a" },
+      { stuk: "Brothers in Arms", bestand: "tenoot/Brothers in arms - tenor.m4a" },
+      { stuk: "Ave Maria", bestand: "tenoot/Ave Maria - tenor.m4a" },
+      { stuk: "Baba Yetu", bestand: "tenoot/Baba Yetu - tenor.m4a" },
+      { stuk: "Driving Home for Christmas", bestand: "tenoot/Driving home for Christmas - tenor.m4a" },
+      { stuk: "Ecce, Quomodo Moritur", bestand: "tenoot/Ecce quomodo - tenor.m4a" },
+      { stuk: "Ere zij God", bestand: "tenoot/Ere zij God - tenor.m4a" },
+      { stuk: "Frieden", bestand: "tenoot/Frieden - tenor.m4a" },
+      { stuk: "Memory (Cats)", bestand: "tenoot/Memory - tenor.m4a" },
+      { stuk: "Panis Angelicus", bestand: "tenoot/Panis angelicus - tenor.m4a" },
+      { stuk: "Les Pêcheurs de Perles", bestand: "tenoot/Pecheurs de perles - tenor.m4a" },
+      { stuk: "Les Pêcheurs de Perles (blz 7-16)", bestand: "tenoot/Parelvissers blz 7-16 - tenor.m4a" },
+      { stuk: "Les Pêcheurs de Perles (uitspraak blz 7-16)", bestand: "tenoot/Uitspraak parelvissers blz 7-16.m4a" },
+      { stuk: "Pelgrimskoor", bestand: "tenoot/Pelgrimskoor - tenor.m4a" },
+      { stuk: "The Rhythm of Life", bestand: "tenoot/Rhythm of life - tenor.m4a" },
+      { stuk: "Skyfall", bestand: "tenoot/Skyfall - tenor.m4a" },
+      { stuk: "Speeltuin", bestand: "tenoot/Speeltuin - tenor.m4a" },
+      { stuk: "Still", bestand: "tenoot/Still - tenor.m4a" },
+      { stuk: "Sure on This Shining Night (t/m maat 34)", bestand: "tenoot/Sure on this shining night t-m 34 - tenor.m4a" },
+      { stuk: "Tjebje Pojiem", bestand: "tenoot/Tjebje Pojiem - tenor.m4a" },
+      { stuk: "Die Gedanken sind frei", bestand: "tenoot/Die Gedanken sind frei - tenor.m4a" },
+      { stuk: "Hymne européen", bestand: "tenoot/Hymne europeen - tenor.m4a" },
+      { stuk: "Oekraïens volkslied", bestand: "tenoot/Oekraiens volkslied - tenor.m4a" },
+      { stuk: "What the World Needs Now", bestand: "tenoot/What the world needs now - tenor.m4a" },
     ],
   },
   { stem: "Bas", opnames: [] },
@@ -137,7 +182,7 @@ const STEMMEN = [
       <div id="leden-content" hidden>
 
         <div class="download-block" style="margin-bottom: var(--space-2xl)">
-          <p>Alle bladmuziek en voorzingopnames in één zip-bestand (ruim 100 MB, gebruik bij voorkeur wifi).</p>
+          <p>Alle bladmuziek en voorzingopnames in één zip-bestand (ruim 200 MB, gebruik bij voorkeur wifi).</p>
           <a href={`${base}/downloads/BMK-bladmuziek-en-opnames.zip`} class="btn btn--primary" download>
             Alles downloaden (.zip)
           </a>
@@ -220,6 +265,40 @@ const STEMMEN = [
 
         <div class="music-list">
           {BLADMUZIEK_KERST.map((stuk) => (
+            <details class="music-item" id={`stuk-${stuk.id}`}>
+              <summary class="music-summary">
+                <span class="music-title">{stuk.title}</span>
+                <span class="music-actions">
+                  <a
+                    href={`${base}/bladmuziek/${stuk.pdf}`}
+                    class="btn btn--outline-dark btn--sm"
+                    download
+                    onclick="event.stopPropagation()"
+                  >Downloaden</a>
+                  <span class="music-toggle-icon" aria-hidden="true">▾</span>
+                </span>
+              </summary>
+              <div class="music-viewer">
+                <button class="pdf-fullscreen-btn" onclick="this.nextElementSibling.requestFullscreen()">⛶ Volledig scherm</button>
+                <iframe
+                  src={`${base}/bladmuziek/${stuk.pdf}#view=FitH`}
+                  class="pdf-frame"
+                  title={`Bladmuziek ${stuk.title}`}
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </details>
+          ))}
+        </div>
+
+        <!-- Overig repertoire -->
+        <div class="section-header" style="margin-top: var(--space-2xl)">
+          <h3>Overig repertoire</h3>
+          <p>Overige bladmuziek en andere versies van stukken uit het repertoire.</p>
+        </div>
+
+        <div class="music-list">
+          {BLADMUZIEK_OVERIG.map((stuk) => (
             <details class="music-item" id={`stuk-${stuk.id}`}>
               <summary class="music-summary">
                 <span class="music-title">{stuk.title}</span>
