@@ -118,7 +118,7 @@ Encrypt it with the board password first, put it in `public/bestuur-documenten/`
 
 ## 6. Known security issues (act on these)
 
-1. **Both portal passwords appear in plaintext in code comments** in `src/pages/leden.astro` and `src/pages/bestuur.astro` (line 6), in a public repo. Anyone can read them on GitHub. Fix: delete the comments, **choose new passwords** (the old ones stay in git history forever), and follow the change-password steps above.
+1. **The old portal passwords and two KeePass databases are in the public git history.** Plaintext password comments were removed from `leden.astro` and `bestuur.astro` on 23 Nov 2026, and `keyswebsite.kdbx` / `passwords.kdbx` were untracked earlier, but older commits still contain them. Fix: **choose new portal passwords**, rotate every credential stored in those KeePass files (they can be brute-forced offline), and purge them from history.
 2. **The password gate is cosmetic.** It only hides content in the browser. Every PDF, recording and the zip can be downloaded by direct URL, and the files sit in the public repo. Board documents are additionally encrypted per file; member files are not.
    - Preferred fix: Cloudflare Worker + R2 with a server-side password check, then remove the files from the repo **and its history**.
    - Quick alternative: a password-protected Nextcloud share.

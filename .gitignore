@@ -49,3 +49,23 @@ Liedjes/
 
 # password databases: never commit
 *.kdbx
+
+# Secrets and credentials of any kind: never commit
+*.kdbx
+*.kdbx.*
+*.key
+*.pem
+*.p12
+*.pfx
+passwords*
+*password*.txt
+*secret*
+credentials*
+.npmrc
+
+# AI tooling local state (stores session text; not part of the site)
+.swarm/
+agentdb.rvf
+agentdb.rvf.*
+ruvector.db
+.claude/settings.local.json

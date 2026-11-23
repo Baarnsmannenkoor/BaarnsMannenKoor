@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-// SHA-256 of password "bmkoor" — update hash to change password
+// SHA-256 of the portal password (the password itself lives in KeePass only, never in this repo)
 // New hash: echo -n "newpassword" | sha256sum
 const PASSWORD_HASH = "97bf6c056607dffc15ae5147a30974c72e5bfe2d74f2939f1e5d1a8554a9707c";
 
