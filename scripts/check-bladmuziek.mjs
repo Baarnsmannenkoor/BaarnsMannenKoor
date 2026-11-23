@@ -1,5 +1,5 @@
 /**
- * Verifies that every bladmuziek/audio file referenced in src/pages/leden.astro
+ * Verifies that every bladmuziek/audio file referenced in src/data/bladmuziek-*.json and stemmen.json
  * actually exists under public/bladmuziek/.
  *
  * Run: node scripts/check-bladmuziek.mjs
@@ -11,17 +11,18 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const src  = readFileSync(join(root, 'src/pages/leden.astro'), 'utf8');
+const data = (f) => JSON.parse(readFileSync(join(root, 'src/data', f), 'utf8'));
 
-// Extract pdf: "..." entries from BLADMUZIEK array
-const pdfs   = [...src.matchAll(/pdf:\s*"([^"]+\.pdf)"/g)].map(m => m[1]);
-// Extract bestand: "..." entries from STEMMEN array
-const audios = [...src.matchAll(/bestand:\s*"([^"]+\.m4a)"/g)].map(m => m[1]);
+// Sheet music lists and per-voice recordings live in src/data/*.json (editable via Pages CMS)
+const pdfs = ['algemeen', 'kerst', 'verbeelding', 'overig']
+  .flatMap((k) => data(`bladmuziek-${k}.json`))
+  .map((s) => s.pdf);
+const audios = data('stemmen.json').flatMap((s) => s.opnames.map((o) => o.bestand));
 
 const files = [...pdfs, ...audios];
 
 if (files.length === 0) {
-  console.error('ERROR: No files found — check regex or leden.astro structure');
+  console.error('ERROR: No files found — check src/data/*.json structure');
   process.exit(1);
 }
 

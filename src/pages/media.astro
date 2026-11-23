@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
+import videos from "../data/videos.json";
+import galleryPhotos from "../data/fotos.json";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 /*
@@ -8,68 +10,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   Format: { id: "YOUTUBE_VIDEO_ID", title: "Concert titel", year: "2024" }
   Leave the array empty or with placeholders if no videos yet.
 */
-const videos = [
-  { id: "2mG3UuvQnoU", title: "Baarns Mannenkoor – Verbeelding", year: "4 okt 2026" },
-  { id: "SZySjtqjAhM", title: "Wervingsfilmpje Kinderkerstkoor", year: "2025" },
-  { id: "4Uc6TJF6TzE", title: "Promotiefilmpje Kerstconcert", year: "2025" },
-  { id: "xj2Iyfo3dWU", title: "80 Jaar Vrijheid (concert)", year: "2025" },
-  { id: "x5ENjXsNaVM", title: "80 Jaar Vrijheid (audio gehele concert)", year: "2025" },
-  { id: "JYqSD-QENyY", title: "Kerstconcert – Jingle Bell Rock", year: "2024" },
-  { id: "28sGzOJ6tEo", title: "Concert 13 Oktober – It Is Amazing", year: "2024" },
-  { id: "17KpVmg359s", title: "Promotiefilm Kerst", year: "2024" },
-  { id: "XhznYlViIrY", title: "Promotiefilm Concert 13 Oktober", year: "2024" },
-  { id: "IGOe9hSmDlU", title: "De Parelvissers 2007–2024", year: "2024" },
-  { id: "gAb8XWoy55c", title: "Baarns Mannenkoor oefent Danny Boy", year: "" },
-  { id: "l5x2YUKCmJE", title: "When I am 64 — de Speeldoos Baarn", year: "" },
-  { id: "qTpyd7chW2g", title: "Hongaars lied: A csitári hegyek alatt", year: "" },
-  { id: "J7ohBekhvRM", title: "Het Witte Kerkje in Baarn", year: "" },
-];
 
-const galleryPhotos = [
-  { src: "8820@2x.jpg", alt: "Baarns Mannenkoor concert" },
-  { src: "8819@2x.jpg", alt: "Baarns Mannenkoor optreden" },
-  { src: "8817@2x.jpg", alt: "Baarns Mannenkoor concert" },
-  { src: "8815@2x.jpg", alt: "Baarns Mannenkoor optreden" },
-  { src: "8813@2x.jpg", alt: "Baarns Mannenkoor concert" },
-  { src: "8812@2x.jpg", alt: "Baarns Mannenkoor optreden" },
-  { src: "8808@2x.jpg", alt: "Baarns Mannenkoor concert" },
-  { src: "8806@2x.jpg", alt: "Baarns Mannenkoor optreden" },
-  { src: "8797@2x.jpg", alt: "Baarns Mannenkoor concert" },
-  { src: "8794@2x.jpg", alt: "Baarns Mannenkoor optreden" },
-  { src: "8799@2x.jpg", alt: "Baarns Mannenkoor concert" },
-  { src: "8801@2x.jpg", alt: "Baarns Mannenkoor optreden" },
-  { src: "8802@2x.jpg", alt: "Baarns Mannenkoor concert" },
-  { src: "8795@2x.jpg", alt: "Baarns Mannenkoor optreden" },
-  { src: "8565.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "8564.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "8563.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "8560.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "8552.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "8551.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "8550.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "8549.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "8548.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "8547.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "6729.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "6728.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "6726.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "6725.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "6724.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "6723.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "6722.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "6721.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "6720.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "6717.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "6713.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "6712.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "6711.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "6710.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "6709.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "6708.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "6707.jpg",    alt: "Baarns Mannenkoor concert"  },
-  { src: "6605.jpg",    alt: "Baarns Mannenkoor optreden" },
-  { src: "6603.jpg",    alt: "Baarns Mannenkoor concert"  },
-];
 ---
 
 <Layout

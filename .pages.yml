@@ -1,0 +1,123 @@
+# Pages CMS configuration (https://pagescms.org)
+# Edit the website in the browser: https://app.pagescms.org -> sign in with GitHub
+# -> choose TheSocialChicken/BaarnsMannenKoor. Every save is a commit to main,
+# which deploys the live site automatically (~2 minutes).
+
+media:
+  - name: bladmuziek
+    label: Bladmuziek & opnames (leden)
+    input: public/bladmuziek
+    output: /bladmuziek
+  - name: fotos
+    label: Foto's
+    input: public/images
+    output: /images
+  - name: downloads
+    label: Downloads (repetitieschema's)
+    input: public/downloads
+    output: /downloads
+
+content:
+  - name: videos
+    label: Video's (Media-pagina)
+    type: file
+    path: src/data/videos.json
+    format: json
+    list: true
+    fields:
+      - name: id
+        label: YouTube-ID (het stukje na watch?v= in de link)
+        type: string
+        required: true
+      - name: title
+        label: Titel
+        type: string
+        required: true
+      - name: year
+        label: Jaar of datum
+        type: string
+
+  - name: fotos
+    label: Fotogalerij (Media-pagina)
+    type: file
+    path: src/data/fotos.json
+    format: json
+    list: true
+    fields:
+      - name: src
+        label: Bestandsnaam in public/images (eerst uploaden via Media > Foto's)
+        type: string
+        required: true
+      - name: alt
+        label: Beschrijving (voor schermlezers)
+        type: string
+        required: true
+
+  - name: bladmuziek-algemeen
+    label: Bladmuziek - Algemeen repertoire (leden)
+    type: file
+    path: src/data/bladmuziek-algemeen.json
+    format: json
+    list: true
+    fields: &stuk
+      - name: id
+        label: Korte unieke code (kleine letters, geen spaties)
+        type: string
+        required: true
+      - name: title
+        label: Titel
+        type: string
+        required: true
+      - name: pdf
+        label: PDF-bestandsnaam in public/bladmuziek (exact, eerst uploaden via Media > Bladmuziek)
+        type: string
+        required: true
+
+  - name: bladmuziek-verbeelding
+    label: Bladmuziek - Verbeelding (leden)
+    type: file
+    path: src/data/bladmuziek-verbeelding.json
+    format: json
+    list: true
+    fields: *stuk
+
+  - name: bladmuziek-kerst
+    label: Bladmuziek - Kerst (leden)
+    type: file
+    path: src/data/bladmuziek-kerst.json
+    format: json
+    list: true
+    fields: *stuk
+
+  - name: bladmuziek-overig
+    label: Bladmuziek - Overig (leden)
+    type: file
+    path: src/data/bladmuziek-overig.json
+    format: json
+    list: true
+    fields: *stuk
+
+  - name: stemmen
+    label: Voorzingopnames per stem (leden)
+    type: file
+    path: src/data/stemmen.json
+    format: json
+    list: true
+    fields:
+      - name: stem
+        label: Stem
+        type: string
+        required: true
+      - name: opnames
+        label: Opnames
+        type: object
+        list: true
+        fields:
+          - name: stuk
+            label: Stuk
+            type: string
+            required: true
+          - name: bestand
+            label: Bestand in public/bladmuziek (bijv. tenoot/Naam - tenor.m4a)
+            type: string
+            required: true

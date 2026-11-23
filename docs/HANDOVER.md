@@ -19,7 +19,7 @@ This document explains how the site works, where everything lives, and how to do
 | Old mail server | Mailcow at `mail.baarnsmannenkoor.nl` | No longer used by members since Sep 2026. Old mailbox passwords are kept in KeePass for reference only. |
 | Contact form | formsubmit.co → `info@baarnsmannenkoor.nl` | No account. The first submission to a new address triggers a confirmation email. |
 | Tickets | Ticketkantoor shop `ticketkantoor.nl/shop/Baarnsmannenkoor` | Linked from `src/pages/events.astro`. |
-| Passwords | KeePass database (`*.kdbx`, group `baarnsmannenkoor.nl`) | **Never committed** (`*.kdbx` is gitignored). Ask the current admin to share it with you through a private channel. |
+| Passwords | `BaarnsMannenKoor-wachtwoorden.kdbx` in the repo root (KeePass 4, encrypted) | Committed deliberately by the owner so it can be downloaded anywhere. Open with KeePassXC. **The master password is never written in the repo**; get it from the owner in person or by phone. Other `*.kdbx` files stay gitignored. |
 | Member page password (`/leden/`) | KeePass / secretaris | Shared with all choir members. |
 | Board page password (`/bestuur/`) | KeePass / secretaris | Board only. |
 
@@ -80,11 +80,35 @@ Node 22 matches CI.
 
 ---
 
-## 4. Common tasks
+## 4. Editing the site in the browser (Pages CMS)
+
+No code needed for the lists on the site. Login is your own GitHub account, so there is no extra password.
+
+**One-time setup (an owner of the `TheSocialChicken` GitHub organization does this once):**
+
+1. Go to <https://app.pagescms.org> and click **Sign in with GitHub**.
+2. Install the Pages CMS GitHub App on the `TheSocialChicken` organization, and give it access to the `BaarnsMannenKoor` repo.
+3. Every editor needs a GitHub account with at least **Write** access to the repo.
+
+**Daily use:** <https://app.pagescms.org> → sign in → **TheSocialChicken / BaarnsMannenKoor**. Every save goes straight to `main`, and the live site updates in about 2 minutes. If a save breaks something, the deploy stops and the old site stays online.
+
+| In Pages CMS | Changes on the site | Data file |
+|---|---|---|
+| Video's | YouTube videos on `/media/` | `src/data/videos.json` |
+| Fotogalerij | Photos on `/media/` | `src/data/fotos.json` |
+| Bladmuziek (4 lists) | Sheet music on `/leden/` | `src/data/bladmuziek-*.json` |
+| Voorzingopnames per stem | Recordings on `/leden/` | `src/data/stemmen.json` |
+| Media (left menu) | Upload PDFs, `.m4a` files, photos and schedules | `public/bladmuziek`, `public/images`, `public/downloads` |
+
+**Adding sheet music:** first upload the PDF under **Media → Bladmuziek**. Then add an entry to the right list and type the filename **exactly** as uploaded. If a name doesn't match, the deploy check blocks it and the site stays as it was.
+
+The page texts (history, conductor, contact, concert texts) are still in the `.astro` files and need code edits. Config: `.pages.yml`.
+
+## 5. Common tasks (code)
 
 ### Add sheet music or a recording to the member portal
 1. Put the PDF / `.m4a` in `public/bladmuziek/`.
-2. Add an entry to the right array at the top of `src/pages/leden.astro`: `BLADMUZIEK`, `BLADMUZIEK_KERST`, `BLADMUZIEK_VERBEELDING`, `BLADMUZIEK_OVERIG` (`pdf: "..."`) or `STEMMEN` (`bestand: "..."`).
+2. Add an entry to the right list in `src/data/` (`bladmuziek-algemeen/kerst/verbeelding/overig.json`, or `stemmen.json`), or use Pages CMS (section 4).
 3. Run `node scripts/check-bladmuziek.mjs`. The filename must match **exactly**, including commas and spaces.
 4. If the total size changes a lot, update the "ruim … MB" text above the zip button.
 
@@ -93,7 +117,7 @@ Both pages compare a SHA-256 hash in the browser.
 
 1. `echo -n "newpassword" | sha256sum`
 2. Replace `PASSWORD_HASH` in `leden.astro` or `bestuur.astro`.
-3. **Do not write the password in a code comment** (see section 6).
+3. **Do not write the password in a code comment** (see section 7).
 4. For `/bestuur/`, re-encrypt every document in `public/bestuur-documenten/` with the new password (PDFs: pikepdf AES-256; docx: msoffcrypto-tool).
 5. Update KeePass and tell the members or board.
 
@@ -101,16 +125,16 @@ Both pages compare a SHA-256 hash in the browser.
 Edit `src/pages/events.astro`. Ticket buttons link to the Ticketkantoor shop.
 
 ### Add a YouTube video
-Add the video ID to the `videos` array in `src/pages/media.astro`. The player loads `youtube.com/embed/<id>` on click.
+Add the video ID to `src/data/videos.json` (or use Pages CMS). The player loads `youtube.com/embed/<id>` on click.
 
 ### Add a board document
 Encrypt it with the board password first, put it in `public/bestuur-documenten/`, then add it to the `DOCUMENTEN` array in `bestuur.astro`.
 
 ---
 
-## 5. Gotchas
+## 6. Gotchas
 
-- **Repo is public.** Anything committed, including history, is visible to everyone. Never commit passwords, `.kdbx` files, `mail-source/`, or `docs/*-instellingen.md` (per-person email files with passwords; gitignored).
+- **Repo is public.** Anything committed, including history, is visible to everyone. Never commit passwords, other `.kdbx` files, `mail-source/`, or `docs/*-instellingen.md` (per-person email files with passwords; gitignored).
 - **Filenames in `leden.astro` must match the disk exactly**, or the deploy is blocked by the bladmuziek test.
 - **`.swarm/` and `agentdb.*` files** are local state from AI tooling (Claude Code / ruflo). They are binary and often cause merge conflicts. When they conflict, keep either version; the site doesn't use them.
 - **Stale notes in `CLAUDE.md`:** the site is live on the custom domain (verified via DNS, Nov 2026) with `base: '/'`, so the "BASE_URL subpath" section and "DNS not yet pointed" are out of date. The `base` variable pattern still works and is harmless.
@@ -118,28 +142,28 @@ Encrypt it with the board password first, put it in `public/bestuur-documenten/`
 
 ---
 
-## 6. Known security issues (act on these)
+## 7. Known security issues (act on these)
 
 1. **The old portal passwords and two KeePass databases are in the public git history.** Plaintext password comments were removed from `leden.astro` and `bestuur.astro` on 23 Nov 2026, and `keyswebsite.kdbx` / `passwords.kdbx` were untracked earlier, but older commits still contain them. Fix: **choose new portal passwords**, rotate every credential stored in those KeePass files (they can be brute-forced offline), and purge them from history.
 2. **The password gate is cosmetic.** It only hides content in the browser. Every PDF, recording and the zip can be downloaded by direct URL, and the files sit in the public repo. Board documents are additionally encrypted per file; member files are not.
    - Preferred fix: Cloudflare Worker + R2 with a server-side password check, then remove the files from the repo **and its history**.
    - Quick alternative: a password-protected Nextcloud share.
-3. KeePass is the only place credentials should live. Share it privately; never via the repo or email in plaintext.
+3. KeePass is the only place credentials should live. The shared database is in the repo by owner decision, so its **master password must be strong and shared only in person or by phone**. Never put a password in plain text in the repo or in email.
 
 ---
 
-## 7. Open backlog
+## 8. Open backlog
 
 Full list in `CLAUDE.md` → Backlog. Highlights:
 
-- **High:** real protection for member files (see 6.2); ticketing beyond the Ticketkantoor link
+- **High:** real protection for member files (see 7.2); ticketing beyond the Ticketkantoor link
 - **Medium:** more on conductor Mark Walter; newsletter signup (Mailchimp/Buttondown)
 - **Low:** SEO / Open Graph tags, privacy-friendly analytics (Plausible/Fathom), Pagefind search, sitemap
 - **Research:** sheet music that scrolls along with the audio
 
 ---
 
-## 8. Related
+## 9. Related
 
 - `CLAUDE.md`: project facts, board contacts, design system, backlog (also read by Claude Code)
 - `docs/e-mail-instellen.pdf`: member guide for sending from a choir address (source in `docs/pdf-src/`)
