@@ -2,7 +2,7 @@
 
 *Written 23 November 2026 for a new admin joining the account.*
 
-This document explains how the site works, where everything lives, and how to do the common jobs. It contains **no passwords**. The repo is public, so secrets never go in here. See [Access and credentials](#1-access-and-credentials).
+This document explains how the site works, where everything lives, and how to do the common jobs. It contains **no passwords**. The repo is public, so secrets never go in here. See [Access and credentials](#access-and-credentials).
 
 ---
 
@@ -12,7 +12,7 @@ This document explains how the site works, where everything lives, and how to do
 |---|---|---|
 | GitHub repo | `TheSocialChicken/BaarnsMannenKoor` (**public**) | `TheSocialChicken` is a GitHub **organization**. An org owner adds you to the repo (or org) with the Admin role if you need Pages/domain settings; Write is enough for content. |
 | Hosting | GitHub Pages (same repo) | Settings → Pages. Custom domain `baarnsmannenkoor.nl`, set via `public/CNAME`. |
-| Domain registrar | team.blue nl B.V. | *Owner: note which account holds the registration.* |
+| Domain registrar | **TransIP** (part of team.blue) | Domain registration lives here; nameservers point to Cloudflare. *Owner: note which TransIP account holds it.* |
 | DNS | **Cloudflare** (nameservers `aaron`/`kelly.ns.cloudflare.com`) | The site is proxied through Cloudflare to GitHub Pages, so public A records show Cloudflare IPs. *Owner: note who has Cloudflare login.* |
 | Email | Inbound MX: Cloudflare Email Routing. Mailbox host: `mail.baarnsmannenkoor.nl` (IMAP 993, SMTP 587). SPF also allows Brevo (Sendinblue). | *Owner: confirm how Cloudflare routing and the mailbox host fit together, and who administers each.* Client setup: [`email-instellingen.md`](email-instellingen.md). |
 | Contact form | formsubmit.co → `info@baarnsmannenkoor.nl` | No account. The first submission to a new address triggers a confirmation email. |
@@ -88,6 +88,7 @@ Node 22 matches CI.
 
 ### Change the member or board password
 Both pages compare a SHA-256 hash in the browser.
+
 1. `echo -n "newpassword" | sha256sum`
 2. Replace `PASSWORD_HASH` in `leden.astro` or `bestuur.astro`.
 3. **Do not write the password in a code comment** (see section 6).
