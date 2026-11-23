@@ -97,7 +97,7 @@ Both pages compare a SHA-256 hash in the browser.
 Edit `src/pages/events.astro`. Ticket buttons link to the Ticketkantoor shop.
 
 ### Add a YouTube video
-Add it to the `videos` array in `src/pages/media.astro`. Use the `youtube-nocookie.com` embed domain.
+Add the video ID to the `videos` array in `src/pages/media.astro`. The player loads `youtube.com/embed/<id>` on click.
 
 ### Add a board document
 Encrypt it with the board password first, put it in `public/bestuur-documenten/`, then add it to the `DOCUMENTEN` array in `bestuur.astro`.
