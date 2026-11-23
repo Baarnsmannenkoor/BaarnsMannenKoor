@@ -10,10 +10,11 @@ This document explains how the site works, where everything lives, and how to do
 
 | What | Where / who | Notes |
 |---|---|---|
-| GitHub repo | `TheSocialChicken/BaarnsMannenKoor` (**public**) | Owner adds you via Settings → Collaborators. Ask for Admin if you need to change Pages or domain settings. |
+| GitHub repo | `TheSocialChicken/BaarnsMannenKoor` (**public**) | `TheSocialChicken` is a GitHub **organization**. An org owner adds you to the repo (or org) with the Admin role if you need Pages/domain settings; Write is enough for content. |
 | Hosting | GitHub Pages (same repo) | Settings → Pages. Custom domain `baarnsmannenkoor.nl`, set via `public/CNAME`. |
-| Domain + DNS | *To fill in by owner: registrar/DNS provider and login holder* | A records point to GitHub Pages: `185.199.108.153`, `.109.153`, `.110.153`, `.111.153`. |
-| Mail server | `mail.baarnsmannenkoor.nl` (IMAP 993, SMTP 587) | *To fill in by owner: hosting provider and admin login holder.* Client setup: [`email-instellingen.md`](email-instellingen.md). |
+| Domain registrar | team.blue nl B.V. | *Owner: note which account holds the registration.* |
+| DNS | **Cloudflare** (nameservers `aaron`/`kelly.ns.cloudflare.com`) | The site is proxied through Cloudflare to GitHub Pages, so public A records show Cloudflare IPs. *Owner: note who has Cloudflare login.* |
+| Email | Inbound MX: Cloudflare Email Routing. Mailbox host: `mail.baarnsmannenkoor.nl` (IMAP 993, SMTP 587). SPF also allows Brevo (Sendinblue). | *Owner: confirm how Cloudflare routing and the mailbox host fit together, and who administers each.* Client setup: [`email-instellingen.md`](email-instellingen.md). |
 | Contact form | formsubmit.co → `info@baarnsmannenkoor.nl` | No account. The first submission to a new address triggers a confirmation email. |
 | Tickets | Ticketkantoor shop `ticketkantoor.nl/shop/Baarnsmannenkoor` | Linked from `src/pages/events.astro`. |
 | Passwords | KeePass database (`*.kdbx`, group `baarnsmannenkoor.nl`) | **Never committed** (`*.kdbx` is gitignored). Ask the current admin to share it with you through a private channel. |
@@ -109,7 +110,7 @@ Encrypt it with the board password first, put it in `public/bestuur-documenten/`
 - **Repo is public.** Anything committed, including history, is visible to everyone. Never commit passwords, `.kdbx` files, `mail-source/`, or `docs/*-instellingen.md` (per-person email files with passwords; gitignored).
 - **Filenames in `leden.astro` must match the disk exactly**, or the deploy is blocked by the bladmuziek test.
 - **`.swarm/` and `agentdb.*` files** are local state from AI tooling (Claude Code / ruflo). They are binary and often cause merge conflicts. When they conflict, keep either version; the site doesn't use them.
-- **Stale notes in `CLAUDE.md`:** the site now runs on the custom domain with `base: '/'`, so the "BASE_URL subpath" section and "DNS not yet pointed" are out of date. The `base` variable pattern still works and is harmless.
+- **Stale notes in `CLAUDE.md`:** the site is live on the custom domain (verified via DNS, Nov 2026) with `base: '/'`, so the "BASE_URL subpath" section and "DNS not yet pointed" are out of date. The `base` variable pattern still works and is harmless.
 - Writing style on the site: no em-dashes (they were removed site-wide). Address visitors as "je", not "u".
 
 ---
