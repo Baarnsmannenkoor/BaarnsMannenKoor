@@ -14,7 +14,9 @@ This document explains how the site works, where everything lives, and how to do
 | Hosting | GitHub Pages (same repo) | Settings → Pages. Custom domain `baarnsmannenkoor.nl`, set via `public/CNAME`. |
 | Domain registrar | **TransIP** (part of team.blue) | Domain registration lives here; nameservers point to Cloudflare. *Owner: note which TransIP account holds it.* |
 | DNS | **Cloudflare** (nameservers `aaron`/`kelly.ns.cloudflare.com`) | The site is proxied through Cloudflare to GitHub Pages, so public A records show Cloudflare IPs. *Owner: note who has Cloudflare login.* |
-| Email | Inbound MX: Cloudflare Email Routing. Mailbox host: `mail.baarnsmannenkoor.nl` (IMAP 993, SMTP 587). SPF also allows Brevo (Sendinblue). | *Owner: confirm how Cloudflare routing and the mailbox host fit together, and who administers each.* Client setup: [`email-instellingen.md`](email-instellingen.md). |
+| Email (receive) | **Cloudflare Email Routing** forwards each address to a personal inbox (no mailbox server). | Rules: Cloudflare → baarnsmannenkoor.nl → Email → Email Routing. Since Sep 2026: secretaris → Hans Stalenhoef's Gmail, the rest → the admin's Gmail. |
+| Email (send) | **Brevo** SMTP relay, used through Gmail "Send mail as" (`smtp-relay.brevo.com:587`, one shared SMTP key) | Brevo re-enables IP blocking about every 30 days; then sending fails with "unauthorized server". Fix: app.brevo.com → Settings → Security → Authorized IPs → Deactivate blocking. Member guide: [`e-mail-instellen.pdf`](e-mail-instellen.pdf). |
+| Old mail server | Mailcow at `mail.baarnsmannenkoor.nl` | No longer used by members since Sep 2026. Old mailbox passwords are kept in KeePass for reference only. |
 | Contact form | formsubmit.co → `info@baarnsmannenkoor.nl` | No account. The first submission to a new address triggers a confirmation email. |
 | Tickets | Ticketkantoor shop `ticketkantoor.nl/shop/Baarnsmannenkoor` | Linked from `src/pages/events.astro`. |
 | Passwords | KeePass database (`*.kdbx`, group `baarnsmannenkoor.nl`) | **Never committed** (`*.kdbx` is gitignored). Ask the current admin to share it with you through a private channel. |
@@ -140,5 +142,6 @@ Full list in `CLAUDE.md` → Backlog. Highlights:
 ## 8. Related
 
 - `CLAUDE.md`: project facts, board contacts, design system, backlog (also read by Claude Code)
-- `docs/email-instellingen.md`: email client setup for board addresses
+- `docs/e-mail-instellen.pdf`: member guide for sending from a choir address (source in `docs/pdf-src/`)
+- `docs/pdf-src/build.sh`: rebuilds every PDF in `docs/` from markdown (pandoc + weasyprint)
 - `kamitor/K-Libary` → `BaarnsMannenKoor/INDEX.md`: indexed weekly by a scheduled action; no action needed here
