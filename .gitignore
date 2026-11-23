@@ -69,3 +69,7 @@ agentdb.rvf
 agentdb.rvf.*
 ruvector.db
 .claude/settings.local.json
+
+# Exception: shared choir password DB, uploaded deliberately at owner request (23 Nov 2026).
+# Encrypted KeePass 4 (AES-256, ~200M KDF rounds). Master password is NOT in this repo.
+!BaarnsMannenKoor-wachtwoorden.kdbx
